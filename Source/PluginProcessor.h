@@ -66,8 +66,10 @@ public:
     void setStateInformation (const void* data, int sizeInBytes) override;
     
     juce::AudioVisualiserComponent LFOScope;
+    //atomic floats to stored on the audio thread then loaded in the GUI thread.
     std::atomic<float> ap_oscOneBtnAlpha;
     std::atomic<float> ap_oscTwoBtnAlpha;
+    std::atomic<float> ap_LFOValueForSlider;
     WaveTable oscOneWavetable;
     WaveTable oscTwoWavetable;
     float oscOneFreq { 1 };

@@ -12,6 +12,8 @@
 #include "Noise.h"
 #include <cmath>
 
+//this should be on addfilter and not main
+
 LFO::LFO() {}
 
 LFO::~LFO () {}
