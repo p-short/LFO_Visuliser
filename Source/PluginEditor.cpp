@@ -13,10 +13,11 @@
 TestAudioProcessorEditor::TestAudioProcessorEditor (TestAudioProcessor& p)
     : AudioProcessorEditor (&p), grabAudioProcessorValue(p.ap_oscOneBtnAlpha, p.ap_oscTwoBtnAlpha) ,audioProcessor (p)
 {
-    addAndMakeVisible(panelOne);
-    addAndMakeVisible(panelTwo);
+    //addAndMakeVisible(panelOne);
+    //addAndMakeVisible(&waveshapePanelOne);
+    //addAndMakeVisible(panelTwo);
     
-    addAndMakeVisible(audioProcessor.LFOScope);
+    //addAndMakeVisible(audioProcessor.LFOScope);
     audioProcessor.LFOScope.setColours(juce::Colours::black, juce::Colour::fromRGB(255, 102, 0));
     
     getLookAndFeel().setColour (juce::Slider::thumbColourId, juce::Colour::fromRGB(255, 102, 0));
@@ -25,21 +26,21 @@ TestAudioProcessorEditor::TestAudioProcessorEditor (TestAudioProcessor& p)
     osc1FrequencySlider.setTextBoxStyle(juce::Slider::NoTextBox, false, 0, 0);
     osc1FrequencySlider.setRange(0.f, 5.f, 0.01f);
     osc1FrequencySlider.setValue(1.f);
-    addAndMakeVisible(osc1FrequencySlider);
+    //addAndMakeVisible(osc1FrequencySlider);
     osc1FrequencySlider.addListener(this);
     
     osc2FrequencySlider.setSliderStyle(juce::Slider::SliderStyle::LinearHorizontal);
     osc2FrequencySlider.setTextBoxStyle(juce::Slider::NoTextBox, false, 0, 0);
     osc2FrequencySlider.setRange(0.f, 5.f, 0.01f);
     osc2FrequencySlider.setValue(1.f);
-    addAndMakeVisible(osc2FrequencySlider);
+    //addAndMakeVisible(osc2FrequencySlider);
     osc2FrequencySlider.addListener(this);
     
     blendOscillators.setSliderStyle(juce::Slider::SliderStyle::LinearHorizontal);
     blendOscillators.setRange(0.f, 1.f, 0.01f);
     blendOscillators.setTextBoxStyle(juce::Slider::NoTextBox, false, 0, 0);
     blendOscillators.setValue(0.f);
-    addAndMakeVisible(blendOscillators);
+    //addAndMakeVisible(blendOscillators);
     blendOscillators.addListener(this);
     
     audioProcessor.oscOneWavetable = SineWave;
@@ -48,9 +49,9 @@ TestAudioProcessorEditor::TestAudioProcessorEditor (TestAudioProcessor& p)
     Timer::startTimerHz(60);
     
     setResizable(true, true);
-    setResizeLimits(450, 150, 675, 250);
-    getConstrainer()->setFixedAspectRatio(3.0);
-    setSize (600, 200);
+    setResizeLimits(300, 250, 600, 500);
+    getConstrainer()->setFixedAspectRatio(1.2);
+    setSize (600, 500);
 }
 
 TestAudioProcessorEditor::~TestAudioProcessorEditor()
@@ -63,6 +64,21 @@ void TestAudioProcessorEditor::paint (juce::Graphics& g)
 {
     // (Our component is opaque, so we must completely fill the background with a solid colour)
     g.fillAll (juce::Colour::fromRGB(204, 204, 204).darker());
+    
+    int t = getHeight() / 3;
+    juce::Rectangle<int> area(getLocalBounds());
+    juce::Rectangle<int> topSection(area.removeFromTop(t));
+    
+    g.setColour(juce::Colours::red);
+    g.drawRect(topSection.removeFromLeft(area.getWidth() / 3));
+    g.drawRect(topSection.removeFromRight(area.getWidth() / 3));
+    
+    int p = getHeight() / 1.5;
+    juce::Rectangle<int> bottomSection(area.removeFromBottom(p));
+    
+    g.setColour(juce::Colours::black);
+    g.drawRect(bottomSection.removeFromLeft(area.getWidth() / 2));
+    g.drawRect(bottomSection.removeFromRight(area.getWidth() / 2));
 }
 
 void TestAudioProcessorEditor::resized()
@@ -83,7 +99,12 @@ void TestAudioProcessorEditor::resized()
     
     float panel2XPos = (getWidth() / 6) * 4.11;
     
-    panelOne.setBounds(0, yCenter - panelArea / 5, panelArea, panelArea); //yCenter - var / 5
+    float waveshapePanelPos = getWidth() / 3;
+    float thing = getWidth() / 4;
+    
+    waveshapePanelOne.setBounds(0, getHeight() / 4, waveshapePanelPos, thing);
+    
+    //panelOne.setBounds(0, yCenter - panelArea / 5, panelArea, panelArea); //yCenter - var / 5
     panelTwo.setBounds(panel2XPos, yCenter - panelArea / 5, panelArea, panelArea);
     
     audioProcessor.LFOScope.setBounds(xCenter - scopeWidth / 2, yCenter - scopeHeight / 2, scopeWidth, scopeHeight);
@@ -98,13 +119,13 @@ void TestAudioProcessorEditor::resized()
 void TestAudioProcessorEditor::timerCallback()
 {
     repaint();
-    float oscOneMappedVal = juce::jmap(grabAudioProcessorValue.getValueOneFromAudioProcessor(), -1.f, 1.f, 0.4f, 1.f);
+    //float oscOneMappedVal = juce::jmap(grabAudioProcessorValue.getValueOneFromAudioProcessor(), -1.f, 1.f, 0.4f, 1.f);
     //could this be handeld in panel class?
-    panelOne.sineBtn.r = oscOneMappedVal;
-    panelOne.triBtn.r = oscOneMappedVal;
-    panelOne.sawBtn.r = oscOneMappedVal;
-    panelOne.squareBtn.r = oscOneMappedVal;
-    panelOne.noiseBtn.r = oscOneMappedVal;
+//    panelOne.sineBtn.r = oscOneMappedVal;
+//    panelOne.triBtn.r = oscOneMappedVal;
+//    panelOne.sawBtn.r = oscOneMappedVal;
+//    panelOne.squareBtn.r = oscOneMappedVal;
+//    panelOne.noiseBtn.r = oscOneMappedVal;
     
     float oscTwoMappedVal = juce::jmap(grabAudioProcessorValue.getValueTwoFromAudioProcessor(), -1.f, 1.f, 0.4f, 1.f);
     panelTwo.sineBtn.r = oscTwoMappedVal;

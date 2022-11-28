@@ -11,6 +11,7 @@
 #include <JuceHeader.h>
 #include "PluginProcessor.h"
 #include "Panel.h"
+#include "WaveshapePanel.h"
 
 
 //==============================================================================
@@ -54,6 +55,7 @@ private:
 
     Panel panelOne;
     Panel panelTwo;
+    WaveshapePanel waveshapePanelOne;
     juce::Slider osc1FrequencySlider;
     juce::Slider osc2FrequencySlider;
     juce::Slider blendOscillators;

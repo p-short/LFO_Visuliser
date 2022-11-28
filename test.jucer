@@ -4,6 +4,8 @@
               addUsingNamespaceToJuceHeader="0" displaySplashScreen="1" jucerFormatVersion="1">
   <MAINGROUP id="Uj2gO9" name="LFO_Scope">
     <GROUP id="{F74A48C3-B796-B271-F37D-DF1C3FA577F0}" name="Source">
+      <FILE id="KUxJZw" name="WaveshapePanel.h" compile="0" resource="0"
+            file="Source/WaveshapePanel.h"/>
       <FILE id="gopJ7h" name="LFO.cpp" compile="1" resource="0" file="Source/LFO.cpp"/>
       <FILE id="ejfxo0" name="LFO.h" compile="0" resource="0" file="Source/LFO.h"/>
       <FILE id="lOBQEN" name="Noise.h" compile="0" resource="0" file="Source/Noise.h"/>
