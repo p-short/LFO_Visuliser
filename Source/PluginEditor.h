@@ -10,7 +10,6 @@
 
 #include <JuceHeader.h>
 #include "PluginProcessor.h"
-#include "Panel.h"
 #include "WaveshapePanel.h"
 
 
@@ -44,6 +43,7 @@ public:
 
     //==============================================================================
     void paint (juce::Graphics&) override;
+    void paintOverChildren(juce::Graphics &g) override;
     void resized() override;
     void timerCallback() override;
     void mouseDown(const juce::MouseEvent &event) override;
@@ -53,12 +53,9 @@ public:
     
 private:
 
-    Panel panelOne;
-    Panel panelTwo;
-    WaveshapePanel waveshapePanelOne;
-    juce::Slider osc1FrequencySlider;
-    juce::Slider osc2FrequencySlider;
-    juce::Slider blendOscillators;
+    WaveshapePanel osc1, osc2;
+    juce::Slider blendSlider;
+    
     TestAudioProcessor& audioProcessor;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (TestAudioProcessorEditor)
